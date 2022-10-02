@@ -1964,6 +1964,7 @@ MonoBehaviour:
   rb: {fileID: 184253960}
   boxCollider: {fileID: 184253959}
   animator: {fileID: 184253956}
+  playerMovement: {fileID: 184253957}
 --- !u!61 &184253959
 BoxCollider2D:
   m_ObjectHideFlags: 0

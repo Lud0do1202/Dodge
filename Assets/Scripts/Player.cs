@@ -8,6 +8,9 @@ public class Player : MonoBehaviour
     public BoxCollider2D boxCollider;
     public Animator animator;
 
+    // Scripts
+    public PlayerMovement playerMovement;
+
     // State
 
     // Singleton

@@ -59,4 +59,10 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.velocity = Vector3.SmoothDamp(rb.velocity, new Vector3(horMovement, vertMovement), ref velocity, .05f);
     }
+
+    public void StopMovement()
+    {
+        rb.velocity = Vector2.zero;
+        this.enabled = false;
+    }
 }
