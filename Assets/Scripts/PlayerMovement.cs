@@ -65,4 +65,9 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = Vector2.zero;
         this.enabled = false;
     }
+
+    public void StartMovement()
+    {
+        this.enabled = true;
+    }
 }
