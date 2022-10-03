@@ -4,18 +4,18 @@ using UnityEngine.UI;
 
 public class SlowMotion : MonoBehaviour
 {
-    public float timeSlowTime;
-    public float timeBeforeNextSloxTime;
+    public float timeSlowMotion;
+    public float timeBeforeNextSlowMotion;
     public float timeScale;
 
-    private bool canSlowTime = true;
+    private bool canSlowMotion = true;
 
     public Animator animator;
     public Image SlowMotionBar;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && canSlowTime)
+        if (Input.GetKeyDown(KeyCode.Space) && canSlowMotion)
         {
             StartCoroutine(SlowTime());
         }
@@ -23,14 +23,14 @@ public class SlowMotion : MonoBehaviour
 
     IEnumerator SlowTime()
     {
-        canSlowTime = false;
+        canSlowMotion = false;
         SlowMotionBar.enabled = false;
         Time.timeScale = timeScale;
-        yield return new WaitForSecondsRealtime(timeSlowTime);
+        yield return new WaitForSecondsRealtime(timeSlowMotion);
         Time.timeScale = 1f;
         SlowMotionBar.enabled = true;
         animator.SetTrigger("StartSlowMotionBar");
-        yield return new WaitForSecondsRealtime(timeBeforeNextSloxTime);
-        canSlowTime = true;
+        yield return new WaitForSecondsRealtime(timeBeforeNextSlowMotion);
+        canSlowMotion = true;
     }
 }

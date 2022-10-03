@@ -17655,8 +17655,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b71c696a0152ebb47b6e6fd2adabd04c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeSlowTime: 1.5
-  timeBeforeNextSloxTime: 1
+  timeSlowMotion: 1.5
+  timeBeforeNextSlowMotion: 1
   timeScale: 0.25
   animator: {fileID: 1782777593}
   SlowMotionBar: {fileID: 1782777594}
