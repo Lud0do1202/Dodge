@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
 
     // Scripts
     public PlayerMovement playerMovement;
+    public PlayerDeath playerDeath;
 
     // State
 

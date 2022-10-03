@@ -1831,7 +1831,7 @@ GameObject:
   - component: {fileID: 184253962}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2032,6 +2032,7 @@ MonoBehaviour:
   boxCollider: {fileID: 184253959}
   animator: {fileID: 184253956}
   playerMovement: {fileID: 184253957}
+  playerDeath: {fileID: 184253961}
 --- !u!61 &184253959
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11538,6 +11539,7 @@ GameObject:
   - component: {fileID: 359857967}
   - component: {fileID: 359857966}
   - component: {fileID: 359857970}
+  - component: {fileID: 359857971}
   m_Layer: 0
   m_Name: Square
   m_TagString: Enemy
@@ -11626,7 +11628,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000ad89cd66
+  m_ApplyToSortingLayers: ad89cd66
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -11749,6 +11751,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93a2cebf77e3cb48851f28d444bffa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &359857971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 359857964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7a0e8ac7129d674e95ef2eeff9ebaf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedBullet: 35
+  minDelayFirstShot: 1
+  maxDelayFirstShot: 1
+  minDelayBetweenShots: 1
+  maxDelayBetweenShots: 2
+  canShoot: 1
+  prefabBullet: {fileID: 3128197713610921939, guid: 80582e432a9c045438241fe96693dcdc, type: 3}
+  bullets: []
 --- !u!1001 &363790808
 PrefabInstance:
   m_ObjectHideFlags: 0

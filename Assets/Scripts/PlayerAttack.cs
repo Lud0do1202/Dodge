@@ -24,8 +24,9 @@ public class PlayerAttack : MonoBehaviour
         playerMovement.StopMovement();
         playerAnimator.SetTrigger("Attack");
 
-        collision.GetComponent<BoxCollider2D>().enabled = false;
         collision.GetComponent<Animator>().SetTrigger("Death");
+        collision.GetComponent<BoxCollider2D>().enabled = false;
+        collision.GetComponent<EnemyShoot>().canShoot = false;
     }
 
     public void EndAttack()
