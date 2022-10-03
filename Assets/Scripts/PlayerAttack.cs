@@ -3,12 +3,12 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     // Component
-    private Animator animator;
+    private Animator playerAnimator;
     private PlayerMovement playerMovement;
 
     private void Start()
     {
-        animator = Player.instance.animator;
+        playerAnimator = Player.instance.animator;
         playerMovement = Player.instance.playerMovement;
     }
 
@@ -22,9 +22,10 @@ public class PlayerAttack : MonoBehaviour
     {
         transform.position = collision.transform.position;
         playerMovement.StopMovement();
-        animator.SetTrigger("Attack");
+        playerAnimator.SetTrigger("Attack");
 
-        Destroy(collision.gameObject);
+        collision.GetComponent<BoxCollider2D>().enabled = false;
+        collision.GetComponent<Animator>().SetTrigger("Death");
     }
 
     public void EndAttack()
