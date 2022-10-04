@@ -238,11 +238,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7a0e8ac7129d674e95ef2eeff9ebaf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedBullet: 40
+  speedBullet: 60
   minDelayFirstShot: 0.5
-  maxDelayFirstShot: 1.5
+  maxDelayFirstShot: 0.75
   minDelayBetweenShots: 0.5
-  maxDelayBetweenShots: 1.5
+  maxDelayBetweenShots: 0.75
   canShoot: 1
   prefabBullet: {fileID: 3128197713610921939, guid: 80582e432a9c045438241fe96693dcdc, type: 3}
   bullets: []
