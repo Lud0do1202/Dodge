@@ -25,4 +25,17 @@ public class PlayerDeath : MonoBehaviour
         animator.SetTrigger("Death");
         playerMovement.StopMovement();
     }
+
+    public void EndDeath()
+    {
+        if (CurrentSceneManager.instance.infinteRespawn)
+        {
+            GameManager.instance.ReloadActiveScene();
+        }
+        else
+        {
+            Debug.Log("Game Over");
+
+        }
+    }
 }

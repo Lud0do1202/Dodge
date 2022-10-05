@@ -12,8 +12,6 @@ public class Player : MonoBehaviour
     public PlayerMovement playerMovement;
     public PlayerDeath playerDeath;
 
-    // State
-
     // Singleton
     public static Player instance;
 
