@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2237355689896645502}
   - component: {fileID: 7779573001418712877}
   m_Layer: 0
-  m_Name: Text Light
+  m_Name: Green Text Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

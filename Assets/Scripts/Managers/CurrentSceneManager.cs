@@ -6,7 +6,8 @@ public class CurrentSceneManager : MonoBehaviour
     public string nextSceneToLoad;
 
     // State
-    public bool infinteRespawn;
+    public bool autoRespawn;
+    public bool canPause;
 
     // Singleton
     public static CurrentSceneManager instance;

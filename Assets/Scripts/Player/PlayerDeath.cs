@@ -28,7 +28,7 @@ public class PlayerDeath : MonoBehaviour
 
     public void EndDeath()
     {
-        if (CurrentSceneManager.instance.infinteRespawn)
+        if (CurrentSceneManager.instance.autoRespawn)
         {
             GameManager.instance.ReloadActiveScene();
         }

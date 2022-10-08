@@ -6,6 +6,10 @@ TagManager:
   tags:
   - DeathArea
   - Enemy
+  - PlayButton
+  - SelectLevelButton
+  - OptionsButton
+  - QuitButton
   layers:
   - Default
   - TransparentFX
