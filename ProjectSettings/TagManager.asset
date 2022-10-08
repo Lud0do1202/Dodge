@@ -10,6 +10,18 @@ TagManager:
   - SelectLevelButton
   - OptionsButton
   - QuitButton
+  - ReduceMusicButton
+  - IncreaseMusicButton
+  - 10%Music
+  - 20%Music
+  - 30%Music
+  - 40%Music
+  - 50%Music
+  - 60%Music
+  - 70%Music
+  - 80%Music
+  - 90%Music
+  - 100%Music
   layers:
   - Default
   - TransparentFX

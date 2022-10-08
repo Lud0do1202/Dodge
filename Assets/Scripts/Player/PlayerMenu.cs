@@ -1,22 +1,45 @@
+using System;
 using UnityEngine;
 
 public class PlayerMenu : MonoBehaviour
 {
-    private GameManager gameManager;
-    private CurrentSceneManager currentSceneManager;
-
+    // Every Button
     private const int NO_BUTTON_SELECTED = 0,
         PLAY_BUTTON = 1,
         SELECT_LEVEL_BUTTON = 2,
         OPTIONS_BUTTON = 3,
-        QUIT_BUTTON = 4;
+        QUIT_BUTTON = 4,
+        REDUCE_MUSIC_BUTTON = 5,
+        INCREASE_MUSIC_BUTTON = 6;
     private int buttonSelected = 0;
 
-    private void Start()
-    {
-        gameManager = GameManager.instance;
-        currentSceneManager = CurrentSceneManager.instance;
-    }
+    private string[] tagsString = new string[] {
+        "PlayButton",
+        "SelectLevelButton",
+        "OptionsButton",
+        "QuitButton",
+        "ReduceMusicButton",
+        "IncreaseMusicButton"
+    };
+    private int[] tagsInt = new int[] {
+        PLAY_BUTTON,
+        SELECT_LEVEL_BUTTON,
+        OPTIONS_BUTTON,
+        QUIT_BUTTON,
+        REDUCE_MUSIC_BUTTON,
+        INCREASE_MUSIC_BUTTON
+    };
+
+    // Options Button
+    public GameObject mainMenu;
+    public GameObject optionsMenu;
+
+    public Transform spawnMainMenu;
+    public Transform spawnOptionsMenu;
+
+    // Music
+    public GameObject[] musicLevels;
+    private int indexMusicLevel = -1;
 
     private void Update()
     {
@@ -25,20 +48,29 @@ public class PlayerMenu : MonoBehaviour
             switch (buttonSelected)
             {
                 case PLAY_BUTTON:
-                    gameManager.LoadSceneWithName(currentSceneManager.nextSceneToLoad);
+                    GameManager.instance.LoadSceneWithName(CurrentSceneManager.instance.nextSceneToLoad);
                     break;
 
                 case SELECT_LEVEL_BUTTON:
-                    gameManager.LoadSceneWithName("Select Level Menu");
+                    GameManager.instance.LoadSceneWithName("Select Level Menu");
                     break;
 
                 case OPTIONS_BUTTON:
-                    Debug.Log("Options menu");
+                    mainMenu.SetActive(false);
+                    optionsMenu.SetActive(true);
+                    transform.position = spawnOptionsMenu.position;
                     break;
 
                 case QUIT_BUTTON:
-                    Debug.Log("Quit");
-                    gameManager.Quit();
+                    GameManager.instance.Quit();
+                    break;
+
+                case REDUCE_MUSIC_BUTTON:
+                    ReduceMusicLevel();
+                    break;
+
+                case INCREASE_MUSIC_BUTTON:
+                    IncreaseMusicLevel();
                     break;
 
                 default:
@@ -49,62 +81,27 @@ public class PlayerMenu : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Play button
-        if (collision.CompareTag("PlayButton"))
+        // Comparer tous les tags
+        for(int i = 0; i<tagsString.Length; i++)
         {
-            HightLighted(collision.gameObject);
-            buttonSelected = PLAY_BUTTON;
-        }
-
-        // Select button
-        else if (collision.CompareTag("SelectLevelButton"))
-        {
-            HightLighted(collision.gameObject);
-            buttonSelected = SELECT_LEVEL_BUTTON;
-        }
-
-        // Options
-        else if (collision.CompareTag("OptionsButton"))
-        {
-            HightLighted(collision.gameObject);
-            buttonSelected = OPTIONS_BUTTON;
-        }
-
-        // Quit
-        else if (collision.CompareTag("QuitButton"))
-        {
-            HightLighted(collision.gameObject);
-            buttonSelected = QUIT_BUTTON;
+            if (collision.CompareTag(tagsString[i]))
+            {
+                HightLighted(collision.gameObject);
+                buttonSelected = tagsInt[i];
+            }
         }
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
-        // Play button
-        if (collision.CompareTag("PlayButton"))
+        // Comparer tous les tags
+        for (int i = 0; i < tagsString.Length; i++)
         {
-            NotHightLighted(collision.gameObject);
-            buttonSelected = NO_BUTTON_SELECTED;
-        }
-
-        // Select button
-        else if (collision.CompareTag("SelectLevelButton"))
-        {
-            NotHightLighted(collision.gameObject);
-            buttonSelected = NO_BUTTON_SELECTED;
-        }
-
-        // Options
-        else if (collision.CompareTag("OptionsButton"))
-        {
-            NotHightLighted(collision.gameObject);
-            buttonSelected = NO_BUTTON_SELECTED;
-        }
-
-        // Quit
-        else if (collision.CompareTag("QuitButton"))
-        {
-            NotHightLighted(collision.gameObject);
-            buttonSelected = NO_BUTTON_SELECTED;
+            if (collision.CompareTag(tagsString[i]))
+            {
+                NotHightLighted(collision.gameObject);
+                buttonSelected = NO_BUTTON_SELECTED;
+            }
         }
     }
 
@@ -115,5 +112,28 @@ public class PlayerMenu : MonoBehaviour
     private void NotHightLighted(GameObject gameObject)
     {
         gameObject.GetComponent<Animator>().SetTrigger("NotHightlighted");
+    }
+
+    private void ReduceMusicLevel()
+    {
+        if (indexMusicLevel >= 0)
+        {
+            musicLevels[indexMusicLevel].SetActive(false);
+            indexMusicLevel--;
+
+            if(indexMusicLevel > -1)
+                musicLevels[indexMusicLevel].SetActive(true);
+        }
+    }
+    private void IncreaseMusicLevel()
+    {
+        if (indexMusicLevel < musicLevels.Length - 1)
+        {
+            if(indexMusicLevel > -1)
+                musicLevels[indexMusicLevel].SetActive(false);
+
+            indexMusicLevel++;
+            musicLevels[indexMusicLevel].SetActive(true);
+        }
     }
 }
