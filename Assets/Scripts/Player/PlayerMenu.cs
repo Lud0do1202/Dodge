@@ -11,7 +11,7 @@ public class PlayerMenu : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Return) && menuManager.buttonSelected != 0)
+        if(Input.GetKeyDown(KeyCode.Return) && menuManager.buttonSelected != MenuManager.NO_BUTTON_SELECTED)
         {
             switch (menuManager.buttonSelected)
             {
@@ -41,6 +41,14 @@ public class PlayerMenu : MonoBehaviour
                     menuManager.IncreaseMusicLevel();
                     break;
 
+                case MenuManager.REDUCE_SOUNDS_BUTTON:
+                    menuManager.ReduceSoundsLevel();
+                    break;
+
+                case MenuManager.INCREASE_SOUNDS_BUTTON:
+                    menuManager.IncreaseSoundsLevel();
+                    break;
+
                 default:
                     break;
             }
@@ -50,7 +58,7 @@ public class PlayerMenu : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Comparer tous les tags
-        for(int i = 0; i< menuManager.tagsString.Length; i++)
+        for(int i = 0; i < menuManager.tagsInt.Length; i++)
         {
             if (collision.CompareTag(menuManager.tagsString[i]))
             {

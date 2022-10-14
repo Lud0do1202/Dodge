@@ -22,6 +22,18 @@ TagManager:
   - 80%Music
   - 90%Music
   - 100%Music
+  - ReduceSoundsButton
+  - IncreaseSoundsButton
+  - 10%Sounds
+  - 20%Sounds
+  - 30%Sounds
+  - 40%Sounds
+  - 50%Sounds
+  - 60%Sounds
+  - 70%Sounds
+  - 80%Sounds
+  - 90%Sounds
+  - 100%Sounds
   layers:
   - Default
   - TransparentFX
