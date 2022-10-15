@@ -49,6 +49,7 @@ public class MenuManager : MonoBehaviour
     // Resolutions
     public GameObject[] resoButton;
     public Tilemap[] resoTilemap;
+    public GameObject[] resoSelected;
 
     // Singleton
     public static MenuManager instance;
@@ -114,6 +115,7 @@ public class MenuManager : MonoBehaviour
         AudioManager.instance.SetSoundsVolume(indexSoundsLevel);
 
         // Afficher les Résolutions
+        ChangeResolution(PlayerPrefs.GetInt("widthReso", 720), PlayerPrefs.GetInt("heightReso", 480), PlayerPrefs.GetInt("indexReso", 0));
         SelectValidResolutions();
     }
 
@@ -246,9 +248,16 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    public void ChangeResolution(int width, int height)
+    public void ChangeResolution(int width, int height, int indexReso)
     {
         Debug.LogWarning("ATTENTION : FULLSCREEN est coder en dur");
         Screen.SetResolution(width, height, false);
+
+        resoSelected[PlayerPrefs.GetInt("indexReso", 0)].SetActive(false);
+        resoSelected[indexReso].SetActive(true);
+
+        PlayerPrefs.SetInt("widthReso", width);
+        PlayerPrefs.SetInt("heightReso", height);
+        PlayerPrefs.SetInt("indexReso", indexReso);
     }
 }

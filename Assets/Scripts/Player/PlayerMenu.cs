@@ -50,19 +50,19 @@ public class PlayerMenu : MonoBehaviour
                     break;
 
                 case MenuManager.RESO_720_480_BUTTON:
-                    menuManager.ChangeResolution(720, 480);
+                    menuManager.ChangeResolution(720, 480, 0);
                     break;
 
                 case MenuManager.RESO_1080_720_BUTTON:
-                    menuManager.ChangeResolution(1080, 720);
+                    menuManager.ChangeResolution(1080, 720, 1);
                     break;
 
                 case MenuManager.RESO_1920_1080_BUTTON:
-                    menuManager.ChangeResolution(1920, 1080);
+                    menuManager.ChangeResolution(1920, 1080, 2);
                     break;
 
                 case MenuManager.RESO_4096_2304_BUTTON:
-                    menuManager.ChangeResolution(4096, 2304);
+                    menuManager.ChangeResolution(4096, 2304, 3);
                     break;
                 default:
                     break;
