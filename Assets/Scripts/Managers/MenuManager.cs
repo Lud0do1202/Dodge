@@ -245,4 +245,10 @@ public class MenuManager : MonoBehaviour
             }
         }
     }
+
+    public void ChangeResolution(int width, int height)
+    {
+        Debug.LogWarning("ATTENTION : FULLSCREEN est coder en dur");
+        Screen.SetResolution(width, height, false);
+    }
 }
