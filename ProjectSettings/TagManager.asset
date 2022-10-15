@@ -34,6 +34,10 @@ TagManager:
   - 80%Sounds
   - 90%Sounds
   - 100%Sounds
+  - 720x480Button
+  - 1080x720Button
+  - 1920x1080Button
+  - 4096x2304Button
   layers:
   - Default
   - TransparentFX

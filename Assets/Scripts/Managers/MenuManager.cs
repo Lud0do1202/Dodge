@@ -1,4 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.Tilemaps;
 
 public class MenuManager : MonoBehaviour
 {
@@ -21,7 +25,11 @@ public class MenuManager : MonoBehaviour
         REDUCE_MUSIC_BUTTON = 5,
         INCREASE_MUSIC_BUTTON = 6,
         REDUCE_SOUNDS_BUTTON = 7,
-        INCREASE_SOUNDS_BUTTON = 8;
+        INCREASE_SOUNDS_BUTTON = 8,
+        RESO_720_480_BUTTON = 9,
+        RESO_1080_720_BUTTON = 10,
+        RESO_1920_1080_BUTTON = 11,
+        RESO_4096_2304_BUTTON = 12;
     [HideInInspector]
     public int buttonSelected = 0;
 
@@ -37,6 +45,10 @@ public class MenuManager : MonoBehaviour
     // Sounds
     public GameObject[] soundsLevels;
     private int indexSoundsLevel;
+
+    // Resolutions
+    public GameObject[] resoButton;
+    public Tilemap[] resoTilemap;
 
     // Singleton
     public static MenuManager instance;
@@ -59,7 +71,11 @@ public class MenuManager : MonoBehaviour
             "ReduceMusicButton",
             "IncreaseMusicButton",
             "ReduceSoundsButton",
-            "IncreaseSoundsButton"
+            "IncreaseSoundsButton",
+            "720x480Button",
+            "1080x720Button",
+            "1920x1080Button",
+            "4096x2304Button"
         };
 
         tagsInt = new int[] {
@@ -70,7 +86,11 @@ public class MenuManager : MonoBehaviour
             REDUCE_MUSIC_BUTTON,
             INCREASE_MUSIC_BUTTON,
             REDUCE_SOUNDS_BUTTON,
-            INCREASE_SOUNDS_BUTTON
+            INCREASE_SOUNDS_BUTTON,
+            RESO_720_480_BUTTON,
+            RESO_1080_720_BUTTON,
+            RESO_1920_1080_BUTTON,
+            RESO_4096_2304_BUTTON
         };
 
         // Say if we have to show the help window
@@ -92,6 +112,9 @@ public class MenuManager : MonoBehaviour
 
         soundsLevels[indexSoundsLevel].SetActive(true);
         AudioManager.instance.SetSoundsVolume(indexSoundsLevel);
+
+        // Afficher les Résolutions
+        SelectValidResolutions();
     }
 
     // Show / Close the help window
@@ -194,6 +217,32 @@ public class MenuManager : MonoBehaviour
 
             // Increase the musicVolume
             AudioManager.instance.SetSoundsVolume(indexSoundsLevel);
+        }
+    }
+
+    // Resolutions
+    public void SelectValidResolutions()
+    {
+        List<Dictionary<string, int>> resolutionsAccepted = new List<Dictionary<string, int>>() 
+        {
+            new Dictionary<string, int>() { { "width", 720 }, { "height", 480 } },
+            new Dictionary<string, int>() { { "width", 1080 }, { "height", 720 } },
+            new Dictionary<string, int>() { { "width", 1920 }, { "height", 1080 } },
+            new Dictionary<string, int>() { { "width", 4096 }, { "height", 2304 } }
+        };
+
+        Resolution[] resolutions = Screen.resolutions;
+        for (int i = 0; i < resolutionsAccepted.Count; i++)
+        {
+            // La résolution accepté est trop grande en x ou y
+            if(resolutionsAccepted[i]["width"] > resolutions[resolutions.Length - 1].width
+                || resolutionsAccepted[i]["height"] > resolutions[resolutions.Length - 1].height)
+            {
+                // Désactiver la résolution
+                resoButton[i].GetComponent<BoxCollider2D>().enabled = false;
+                resoButton[i].GetComponent<Light2D>().color = new Color(0, 0.2f, 0);
+                resoTilemap[i].color = new Color(0, 0.2f, 0);
+            }
         }
     }
 }
