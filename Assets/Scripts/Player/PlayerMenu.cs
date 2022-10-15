@@ -49,6 +49,10 @@ public class PlayerMenu : MonoBehaviour
                     menuManager.IncreaseSoundsLevel();
                     break;
 
+                case MenuManager.FULLSCREEN:
+                    menuManager.ChangeFullscreen();
+                    break;
+
                 case MenuManager.RESO_720_480_BUTTON:
                     menuManager.ChangeResolution(720, 480, 0);
                     break;
@@ -64,6 +68,7 @@ public class PlayerMenu : MonoBehaviour
                 case MenuManager.RESO_4096_2304_BUTTON:
                     menuManager.ChangeResolution(4096, 2304, 3);
                     break;
+
                 default:
                     break;
             }

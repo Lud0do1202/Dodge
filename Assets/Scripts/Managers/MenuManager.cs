@@ -29,7 +29,8 @@ public class MenuManager : MonoBehaviour
         RESO_720_480_BUTTON = 9,
         RESO_1080_720_BUTTON = 10,
         RESO_1920_1080_BUTTON = 11,
-        RESO_4096_2304_BUTTON = 12;
+        RESO_4096_2304_BUTTON = 12,
+        FULLSCREEN = 13;
     [HideInInspector]
     public int buttonSelected = 0;
 
@@ -47,6 +48,10 @@ public class MenuManager : MonoBehaviour
     private int indexSoundsLevel;
 
     // Resolutions
+    private Resolution[] resolutions;
+    private List<Dictionary<string, int>> resolutionsAccepted;
+    private int indexLastReso;
+    public GameObject fullscreenSelected;
     public GameObject[] resoButton;
     public Tilemap[] resoTilemap;
     public GameObject[] resoSelected;
@@ -76,7 +81,8 @@ public class MenuManager : MonoBehaviour
             "720x480Button",
             "1080x720Button",
             "1920x1080Button",
-            "4096x2304Button"
+            "4096x2304Button",
+            "Fullscreen"
         };
 
         tagsInt = new int[] {
@@ -91,7 +97,8 @@ public class MenuManager : MonoBehaviour
             RESO_720_480_BUTTON,
             RESO_1080_720_BUTTON,
             RESO_1920_1080_BUTTON,
-            RESO_4096_2304_BUTTON
+            RESO_4096_2304_BUTTON,
+            FULLSCREEN
         };
 
         // Say if we have to show the help window
@@ -103,6 +110,17 @@ public class MenuManager : MonoBehaviour
         // get the indexMusic/SoundsLevel
         indexMusicLevel = PlayerPrefs.GetInt("indexMusicLevel", 9);
         indexSoundsLevel = PlayerPrefs.GetInt("indexSoundsLevel", 9);
+
+        // Résolutions
+        resolutionsAccepted = new List<Dictionary<string, int>>()
+        {
+            new Dictionary<string, int>() { { "width", 720 }, { "height", 480 } },
+            new Dictionary<string, int>() { { "width", 1080 }, { "height", 720 } },
+            new Dictionary<string, int>() { { "width", 1920 }, { "height", 1080 } },
+            new Dictionary<string, int>() { { "width", 4096 }, { "height", 2304 } }
+        };
+
+        resolutions = Screen.resolutions;
     }
 
     private void Start()
@@ -115,8 +133,11 @@ public class MenuManager : MonoBehaviour
         AudioManager.instance.SetSoundsVolume(indexSoundsLevel);
 
         // Afficher les Résolutions
-        ChangeResolution(PlayerPrefs.GetInt("widthReso", 720), PlayerPrefs.GetInt("heightReso", 480), PlayerPrefs.GetInt("indexReso", 0));
+        ChangeFullscreen((PlayerPrefs.GetInt("isFullscreen", 1) == 1)?true:false);
         SelectValidResolutions();
+        int defaultWidth = resolutionsAccepted[indexLastReso]["width"],
+            defaultHeight = resolutionsAccepted[indexLastReso]["height"];
+        ChangeResolution(PlayerPrefs.GetInt("widthReso", defaultWidth), PlayerPrefs.GetInt("heightReso", defaultHeight), PlayerPrefs.GetInt("indexReso", indexLastReso));
     }
 
     // Show / Close the help window
@@ -225,15 +246,7 @@ public class MenuManager : MonoBehaviour
     // Resolutions
     public void SelectValidResolutions()
     {
-        List<Dictionary<string, int>> resolutionsAccepted = new List<Dictionary<string, int>>() 
-        {
-            new Dictionary<string, int>() { { "width", 720 }, { "height", 480 } },
-            new Dictionary<string, int>() { { "width", 1080 }, { "height", 720 } },
-            new Dictionary<string, int>() { { "width", 1920 }, { "height", 1080 } },
-            new Dictionary<string, int>() { { "width", 4096 }, { "height", 2304 } }
-        };
-
-        Resolution[] resolutions = Screen.resolutions;
+        indexLastReso = resolutionsAccepted.Count - 1;
         for (int i = 0; i < resolutionsAccepted.Count; i++)
         {
             // La résolution accepté est trop grande en x ou y
@@ -244,20 +257,58 @@ public class MenuManager : MonoBehaviour
                 resoButton[i].GetComponent<BoxCollider2D>().enabled = false;
                 resoButton[i].GetComponent<Light2D>().color = new Color(0, 0.2f, 0);
                 resoTilemap[i].color = new Color(0, 0.2f, 0);
+                
+                if (indexLastReso == resolutionsAccepted.Count - 1)
+                    indexLastReso = i - 1;
             }
         }
     }
 
     public void ChangeResolution(int width, int height, int indexReso)
     {
-        Debug.LogWarning("ATTENTION : FULLSCREEN est coder en dur");
-        Screen.SetResolution(width, height, false);
+        // Modifier la résolution
+        Screen.SetResolution(width, height, Screen.fullScreen);
 
+        // Désactiver l'ancienne réso selectionnnée et activer la nouvelle
         resoSelected[PlayerPrefs.GetInt("indexReso", 0)].SetActive(false);
         resoSelected[indexReso].SetActive(true);
 
+        // Enregistrer les infos
         PlayerPrefs.SetInt("widthReso", width);
         PlayerPrefs.SetInt("heightReso", height);
         PlayerPrefs.SetInt("indexReso", indexReso);
+    }
+
+    public void ChangeFullscreen()
+    {
+        // Si il est désactivé -> on active le fullscreen
+        if (PlayerPrefs.GetInt("isFullscreen", 0) == 0)
+        {
+            Screen.fullScreen = true;
+            fullscreenSelected.SetActive(true);
+            PlayerPrefs.SetInt("isFullscreen", 1);
+        }
+        else
+        {
+            Screen.fullScreen = false;
+            fullscreenSelected.SetActive(false);
+            PlayerPrefs.SetInt("isFullscreen", 0);
+        }
+    }
+    public void ChangeFullscreen(bool isFullscreen)
+    {
+        // Si il est désactivé -> on active le fullscreen
+        if (isFullscreen)
+        {
+            Screen.fullScreen = true;
+            fullscreenSelected.SetActive(true);
+            PlayerPrefs.SetInt("isFullscreen", 1);
+        }
+        else
+        {
+            Screen.fullScreen = false;
+            fullscreenSelected.SetActive(false);
+            PlayerPrefs.SetInt("isFullscreen", 0);
+        }
     }
 }

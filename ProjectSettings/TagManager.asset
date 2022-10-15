@@ -38,6 +38,7 @@ TagManager:
   - 1080x720Button
   - 1920x1080Button
   - 4096x2304Button
+  - Fullscreen
   layers:
   - Default
   - TransparentFX

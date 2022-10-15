@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
             Debug.Log("Manual Respawn");
             ReloadActiveScene();
         }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+            PlayerPrefs.DeleteAll();
     }
 
     public void ReloadActiveScene()
