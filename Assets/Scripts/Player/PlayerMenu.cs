@@ -69,6 +69,10 @@ public class PlayerMenu : MonoBehaviour
                     menuManager.ChangeResolution(4096, 2304, 3);
                     break;
 
+                case MenuManager.CREDIT_BUTTON:
+                    GameManager.instance.LoadSceneWithName("Credits");
+                    break;
+
                 default:
                     break;
             }

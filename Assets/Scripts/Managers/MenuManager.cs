@@ -30,7 +30,8 @@ public class MenuManager : MonoBehaviour
         RESO_1080_720_BUTTON = 10,
         RESO_1920_1080_BUTTON = 11,
         RESO_4096_2304_BUTTON = 12,
-        FULLSCREEN = 13;
+        FULLSCREEN = 13,
+        CREDIT_BUTTON = 14;
     [HideInInspector]
     public int buttonSelected = 0;
 
@@ -82,7 +83,8 @@ public class MenuManager : MonoBehaviour
             "1080x720Button",
             "1920x1080Button",
             "4096x2304Button",
-            "Fullscreen"
+            "Fullscreen",
+            "CreditButton"
         };
 
         tagsInt = new int[] {
@@ -98,7 +100,8 @@ public class MenuManager : MonoBehaviour
             RESO_1080_720_BUTTON,
             RESO_1920_1080_BUTTON,
             RESO_4096_2304_BUTTON,
-            FULLSCREEN
+            FULLSCREEN,
+            CREDIT_BUTTON
         };
 
         // Say if we have to show the help window
