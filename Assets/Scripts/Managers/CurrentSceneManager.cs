@@ -4,6 +4,7 @@ public class CurrentSceneManager : MonoBehaviour
 {
     // Var
     public string nextSceneToLoad;
+    public string backSceneToload;
 
     // State
     public bool autoRespawn;

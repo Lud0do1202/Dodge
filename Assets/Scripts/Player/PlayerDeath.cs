@@ -3,13 +3,13 @@ using UnityEngine;
 public class PlayerDeath : MonoBehaviour
 {
     // Components
-    private Animator animator;
+    private Animator playerAnimator;
     private PlayerMovement playerMovement;
 
     private void Start()
     {
-        animator = Player.instance.animator;
-        playerMovement = Player.instance.playerMovement;
+        playerAnimator = gameObject.GetComponent<Animator>();
+        playerMovement = gameObject.GetComponent<PlayerMovement>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -22,7 +22,7 @@ public class PlayerDeath : MonoBehaviour
 
     public void Death()
     {
-        animator.SetTrigger("Death");
+        playerAnimator.SetTrigger("Death");
         playerMovement.StopMovement();
     }
 

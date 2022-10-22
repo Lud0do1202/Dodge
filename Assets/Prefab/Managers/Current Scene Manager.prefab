@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e22a830636fb3e94c87cf08a2dc297d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextSceneToLoad: 
-  infinteRespawn: 0
-  activeSlowMotion: 0
+  nextSceneToLoad: Test Level
+  autoRespawn: 1
+  canPause: 0

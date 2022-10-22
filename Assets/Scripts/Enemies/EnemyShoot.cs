@@ -13,55 +13,63 @@ public class EnemyShoot : MonoBehaviour
     public float maxDelayBetweenShots;
 
     [HideInInspector]
+    public float timeAtShot;
+    [HideInInspector]
+    public float delayBetweenShots;
+
+    [HideInInspector]
     public bool canShoot = true;
 
     [HideInInspector]
     public List<GameObject> bullets = new List<GameObject>();
-    private Transform playerTransform;
+    public Transform playerTransform;
 
     public GameObject prefabBullet;
 
     private void Start()
     {
-        StartCoroutine(FirstShot());
-        playerTransform = Player.instance.transform;
+        // sauvegarder le delay et le temp pour le calcul du delay si on passe dans les options
+        StartCoroutine(Shoot(Random.Range(minDelayFirstShot, maxDelayFirstShot)));
     }
 
-    public IEnumerator Shoot()
+    public IEnumerator Shoot(float delay)
     {
-        // Instantier une bullet
-        bullets.Add(Instantiate(prefabBullet, gameObject.transform));
+        delayBetweenShots = delay;
+        timeAtShot = Time.time;
 
-        // Calculer le vecteur de reférence pour la rotation
-        Vector3 vectorRef;
-        if (playerTransform.position.y >= transform.position.y)
-            vectorRef = Vector3.right;
-        else
-            vectorRef = Vector3.left;
+        yield return new WaitForSeconds(delay);
 
-        // Rotationner la bullet
-        float angleRotation = Vector3.Angle(playerTransform.position - transform.position, vectorRef);
-        bullets[bullets.Count - 1].transform.Rotate(0f, 0f, angleRotation, Space.Self);
+        // Vérifier si il peut tirer 
+        if (canShoot)
+        {
+            delayBetweenShots = Random.Range(minDelayBetweenShots, maxDelayBetweenShots);
+            timeAtShot = Time.time;
 
-        // Calculer la direction de la bullet
-        Vector3 direction = playerTransform.position - transform.position;
+            // Instantier une bullet
+            bullets.Add(Instantiate(prefabBullet, gameObject.transform));
 
-        // Ajouter la force
-        Vector2 force = direction.normalized * speedBullet * Time.fixedDeltaTime * 1000;
-        bullets[bullets.Count - 1].GetComponent<Rigidbody2D>().AddForce(force);
+            // Calculer le vecteur de reférence pour la rotation
+            Vector3 vectorRef;
+            if (playerTransform.position.y >= transform.position.y)
+                vectorRef = Vector3.right;
+            else
+                vectorRef = Vector3.left;
 
-        // Attendre x secondes entre 2 bullets
-        yield return new WaitForSeconds(Random.Range(minDelayBetweenShots, maxDelayBetweenShots));
+            // Rotationner la bullet
+            float angleRotation = Vector3.Angle(playerTransform.position - transform.position, vectorRef);
+            bullets[bullets.Count - 1].transform.Rotate(0f, 0f, angleRotation, Space.Self);
 
-        // Tirer une nouvelle bullet
-        if(canShoot)
-            StartCoroutine(Shoot());
-    }
+            // Calculer la direction de la bullet
+            Vector3 direction = playerTransform.position - transform.position;
 
-    public IEnumerator FirstShot()
-    {
-        yield return new WaitForSeconds(Random.Range(minDelayFirstShot, maxDelayFirstShot));
-        if(canShoot)
-            StartCoroutine(Shoot());
+            // Ajouter la force
+            Vector2 force = direction.normalized * speedBullet * Time.fixedDeltaTime * 10;
+            bullets[bullets.Count - 1].GetComponent<Bullet>().velocity = force;
+            bullets[bullets.Count - 1].GetComponent<Rigidbody2D>().velocity = force;
+
+            // Tirer une nouvelle bullet
+            StartCoroutine(Shoot(delayBetweenShots));
+        }
+        
     }
 }

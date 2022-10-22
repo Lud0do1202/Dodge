@@ -1,7 +1,5 @@
 using UnityEngine;
 
-// *****************************
-
 public class PlayerMovement : MonoBehaviour
 {
     // Var
@@ -12,16 +10,15 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
 
     // Components player
-    private SpriteRenderer spriteRenderer;
-    private Animator animator;
-    private Rigidbody2D rb;
+    private SpriteRenderer playerSpriteRenderer;
+    private Animator playerAnimator;
+    private Rigidbody2D playerRb;
 
     private void Start()
     {
-        // Init component of the player
-        spriteRenderer = Player.instance.spriteRenderer;
-        animator = Player.instance.animator;
-        rb = Player.instance.rb;
+        playerSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        playerAnimator = gameObject.GetComponent<Animator>();
+        playerRb = gameObject.GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -30,12 +27,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.Q))
         {
             horMovement = -speed * Time.fixedDeltaTime;
-            spriteRenderer.flipX = true;
+            playerSpriteRenderer.flipX = true;
         }
         else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             horMovement = speed * Time.fixedDeltaTime;
-            spriteRenderer.flipX = false;
+            playerSpriteRenderer.flipX = false;
         }
         else
             horMovement = 0f;
@@ -50,19 +47,19 @@ public class PlayerMovement : MonoBehaviour
 
         // Animation de RUN
         if (horMovement == 0f && vertMovement == 0f)
-            animator.SetBool("IsRunning", false);
+            playerAnimator.SetBool("IsRunning", false);
         else
-            animator.SetBool("IsRunning", true);
+            playerAnimator.SetBool("IsRunning", true);
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = Vector3.SmoothDamp(rb.velocity, new Vector3(horMovement, vertMovement), ref velocity, .05f);
+        playerRb.velocity = Vector3.SmoothDamp(playerRb.velocity, new Vector3(horMovement, vertMovement), ref velocity, .05f);
     }
 
     public void StopMovement()
     {
-        rb.velocity = Vector2.zero;
+        playerRb.velocity = Vector2.zero;
         this.enabled = false;
     }
 

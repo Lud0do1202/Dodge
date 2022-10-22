@@ -8,8 +8,8 @@ public class PlayerAttack : MonoBehaviour
 
     private void Start()
     {
-        playerAnimator = Player.instance.animator;
-        playerMovement = Player.instance.playerMovement;
+        playerAnimator = gameObject.GetComponent<Animator>();
+        playerMovement = gameObject.GetComponent<PlayerMovement>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -40,6 +40,8 @@ TagManager:
   - 4096x2304Button
   - Fullscreen
   - CreditButton
+  - BackButton
+  - Bullet
   layers:
   - Default
   - TransparentFX
