@@ -8,7 +8,7 @@ public class CreditsButton : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return) && triggerStay)
         {
-            GameManager.instance.LoadSceneSingle("Credits");
+            GameManager.instance.LoadScene("Credits");
         }
     }
 

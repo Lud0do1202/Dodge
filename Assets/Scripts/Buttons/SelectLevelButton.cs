@@ -8,7 +8,7 @@ public class SelectLevelButton : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return) && triggerStay)
         {
-            GameManager.instance.LoadSceneSingle("Select Level");
+            GameManager.instance.LoadScene("Select Level");
         }
     }
 

@@ -22,4 +22,15 @@ public class CurrentSceneManager : MonoBehaviour
         }
         instance = this;
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && canPause)
+        {
+            if (Time.timeScale == 1f)
+                Time.timeScale = 0f;
+            else
+                Time.timeScale = 1f;
+        }
+    }
 }
