@@ -42,6 +42,8 @@ TagManager:
   - CreditButton
   - BackButton
   - Bullet
+  - Resume Button
+  - Main Menu Button
   layers:
   - Default
   - TransparentFX

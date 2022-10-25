@@ -2,9 +2,6 @@ using UnityEngine;
 
 public class OptionsButton : MonoBehaviour
 {
-    public Transform spawnOptions;
-    public Transform playerOptions;
-
     public GameObject mainMenu;
     public GameObject options;
 
@@ -14,18 +11,8 @@ public class OptionsButton : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return) && triggerStay)
         {
-            MainMenuManager.instance.NotHightLighted(gameObject);
-            triggerStay = false;
-
-            mainMenu.SetActive(!mainMenu.activeInHierarchy);
-            options.SetActive(!mainMenu.activeInHierarchy);
-
-            // Replacer le player
-            playerOptions.position = spawnOptions.position;
-
-            // Changer le focus sur le player
-            CameraFollow.instance.ChangeFocusPlayer();
-            CameraFollow.instance.SetPosOnPlayer();
+            CurrentSceneManager csm = CurrentSceneManager.instance;
+            GameManager.instance.LoadSubScene(csm.optionsSubScene, csm.optionsPlayer, csm.optionsSpawnPlayer, false);
         }
     }
 

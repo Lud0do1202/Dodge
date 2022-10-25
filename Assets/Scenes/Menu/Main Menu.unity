@@ -445,6 +445,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1215225951183164835, guid: 0fbd4e25658f7ef44985468373fde0e9, type: 3}
+      propertyPath: pausePlayer
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1215225951183164835, guid: 0fbd4e25658f7ef44985468373fde0e9, type: 3}
+      propertyPath: startPlayer
+      value: 
+      objectReference: {fileID: 596273778}
+    - target: {fileID: 1215225951183164835, guid: 0fbd4e25658f7ef44985468373fde0e9, type: 3}
+      propertyPath: optionsPlayer
+      value: 
+      objectReference: {fileID: 1520828668}
+    - target: {fileID: 1215225951183164835, guid: 0fbd4e25658f7ef44985468373fde0e9, type: 3}
+      propertyPath: pauseSubScene
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1215225951183164835, guid: 0fbd4e25658f7ef44985468373fde0e9, type: 3}
+      propertyPath: startSubScene
+      value: 
+      objectReference: {fileID: 1635863528}
+    - target: {fileID: 1215225951183164835, guid: 0fbd4e25658f7ef44985468373fde0e9, type: 3}
+      propertyPath: mainMenuPlayer
+      value: 
+      objectReference: {fileID: 596273778}
+    - target: {fileID: 1215225951183164835, guid: 0fbd4e25658f7ef44985468373fde0e9, type: 3}
+      propertyPath: optionsSubScene
+      value: 
+      objectReference: {fileID: 1034476332}
+    - target: {fileID: 1215225951183164835, guid: 0fbd4e25658f7ef44985468373fde0e9, type: 3}
+      propertyPath: mainMenuSubScene
+      value: 
+      objectReference: {fileID: 1635863528}
+    - target: {fileID: 1215225951183164835, guid: 0fbd4e25658f7ef44985468373fde0e9, type: 3}
+      propertyPath: pauseSpawnPlayer
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1215225951183164835, guid: 0fbd4e25658f7ef44985468373fde0e9, type: 3}
+      propertyPath: startSpawnPlayer
+      value: 
+      objectReference: {fileID: 769596854}
+    - target: {fileID: 1215225951183164835, guid: 0fbd4e25658f7ef44985468373fde0e9, type: 3}
+      propertyPath: optionsSpawnPlayer
+      value: 
+      objectReference: {fileID: 1934180013}
+    - target: {fileID: 1215225951183164835, guid: 0fbd4e25658f7ef44985468373fde0e9, type: 3}
+      propertyPath: mainMenuSpawnPlayer
+      value: 
+      objectReference: {fileID: 769596854}
     - target: {fileID: 1215225951183164837, guid: 0fbd4e25658f7ef44985468373fde0e9, type: 3}
       propertyPath: m_Name
       value: Current Scene Manager
@@ -575,6 +623,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Menu
       objectReference: {fileID: 0}
+    - target: {fileID: 2854478669626470657, guid: d89e6e0ceafc5544187afe6985d91291, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d89e6e0ceafc5544187afe6985d91291, type: 3}
 --- !u!1001 &4633443523667895863
@@ -584,6 +636,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 963744929559831759, guid: 394df8f73e8c6754ebdcdecfd0def8e3, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1423217902510322005, guid: 394df8f73e8c6754ebdcdecfd0def8e3, type: 3}
       propertyPath: mainMenu
       value: 
@@ -659,6 +715,10 @@ PrefabInstance:
     - target: {fileID: 4633443523057155355, guid: 394df8f73e8c6754ebdcdecfd0def8e3, type: 3}
       propertyPath: m_Name
       value: Options
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633443523057155355, guid: 394df8f73e8c6754ebdcdecfd0def8e3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 394df8f73e8c6754ebdcdecfd0def8e3, type: 3}

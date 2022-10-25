@@ -1,0 +1,24 @@
+TO DO LIST : Dodge Game
+--------------------------
+
+* One Tilemap for :
+	- Ground (White)
+	- Green Text
+	- Red Text
+	- Walls
+
+* Make Prefab of :
+	- Level
+	- Main Menu
+	- Options
+	- Pause
+
+* Change name of tags (like backButton --> Back Button)
+
+* Box collider of buttons :
+	- size.x = length + 0.5
+	- size.y = height + 0.5
+
+* Do only one script that handle buttons
+	- With tags
+	- game manager fin

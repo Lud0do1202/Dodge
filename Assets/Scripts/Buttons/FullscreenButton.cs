@@ -16,7 +16,7 @@ public class FullscreenButton : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            MainMenuManager.instance.HightLighted(gameObject);
+            OptionsManager.instance.HightLighted(gameObject);
             triggerStay = true;
         }
     }
@@ -25,7 +25,7 @@ public class FullscreenButton : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            MainMenuManager.instance.NotHightLighted(gameObject);
+            OptionsManager.instance.NotHightLighted(gameObject);
             triggerStay = false;
         }
     }

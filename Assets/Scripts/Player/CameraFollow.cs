@@ -2,11 +2,6 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform primaryPlayer;
-    public Transform secondaryPlayer;
-    private bool isPrimaryPlayer = false;
-    private Transform playerTransform;
-
     public float timeOffset;
 
     private Vector3 velocity = Vector3.zero;
@@ -25,26 +20,25 @@ public class CameraFollow : MonoBehaviour
 
     private void Start()
     {
-        ChangeFocusPlayer();
+        SetFocusPlayer();
     }
 
     void Update()
     {
-        transform.position = Vector3.SmoothDamp(transform.position, new Vector3(playerTransform.position.x, playerTransform.position.y, transform.position.z), ref velocity, timeOffset);
+        transform.position = Vector3.SmoothDamp(transform.position, new Vector3(
+                CurrentSceneManager.instance.currentPlayer.position.x,
+                CurrentSceneManager.instance.currentPlayer.position.y, 
+                transform.position.z
+            ), ref velocity, timeOffset);
     }
 
-    public void SetPosOnPlayer()
+    public void SetFocusPlayer()
     {
-        transform.position = new Vector3(playerTransform.position.x, playerTransform.position.y, transform.position.z);
-    }
-
-    public void ChangeFocusPlayer()
-    {
-        if (isPrimaryPlayer)
-            playerTransform = secondaryPlayer;
-        else
-            playerTransform = primaryPlayer;
-
-        isPrimaryPlayer = !isPrimaryPlayer;
+        // Positionner la camera sur le joueur
+        transform.position = new Vector3(
+                CurrentSceneManager.instance.currentPlayer.position.x,
+                CurrentSceneManager.instance.currentPlayer.position.y,
+                transform.position.z
+            );
     }
 }
