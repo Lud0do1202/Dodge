@@ -12,7 +12,7 @@ public class OptionsButton : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return) && triggerStay)
         {
             CurrentSceneManager csm = CurrentSceneManager.instance;
-            GameManager.instance.LoadSubScene(csm.optionsSubScene, csm.optionsPlayer, csm.optionsSpawnPlayer, false);
+            GameManager.instance.LoadSubScene(csm.optionsSubScene, csm.optionsPlayer, csm.optionsSpawnPlayer, false, true);
         }
     }
 

@@ -13,6 +13,8 @@ public class EnemyShoot : MonoBehaviour
     public float maxDelayBetweenShots;
 
     [HideInInspector]
+    public float delayFirstShot;
+    [HideInInspector]
     public float timeAtShot;
     [HideInInspector]
     public float delayBetweenShots;
@@ -26,10 +28,9 @@ public class EnemyShoot : MonoBehaviour
 
     public GameObject prefabBullet;
 
-    private void Start()
+    private void Awake()
     {
-        // sauvegarder le delay et le temp pour le calcul du delay si on passe dans les options
-        StartCoroutine(Shoot(Random.Range(minDelayFirstShot, maxDelayFirstShot)));
+        delayFirstShot = Random.Range(minDelayFirstShot, maxDelayFirstShot);
     }
 
     public IEnumerator Shoot(float delay)

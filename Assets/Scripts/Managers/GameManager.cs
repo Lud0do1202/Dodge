@@ -22,7 +22,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        // Birth of the player
         csm = CurrentSceneManager.instance;
+        csm.currentPlayer.gameObject.GetComponent<PlayerLife>().Birth();
     }
 
     private void Update()
@@ -37,7 +39,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && csm.canPause)
         {
             csm.canPause = false;
-            LoadSubScene(csm.pauseSubScene, csm.pausePlayer, csm.pauseSpawnPlayer, true);
+            LoadSubScene(csm.pauseSubScene, csm.pausePlayer, csm.pauseSpawnPlayer, true, true);
         }
     }
 
@@ -56,7 +58,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(PlayerPrefs.GetString("NextLevel", "Level_00"));
     }
 
-    public void LoadSubScene(GameObject subSceneToLoad, Transform playerTransform, Transform spawnPlayerTransform, bool saveTimeAtLoadSubScene)
+    public void LoadSubScene(GameObject subSceneToLoad, Transform playerTransform, Transform spawnPlayerTransform, bool saveTimeAtLoadSubScene, bool birthAnimation)
     {
         CurrentSceneManager csm = CurrentSceneManager.instance;
 
@@ -83,6 +85,13 @@ public class GameManager : MonoBehaviour
 
         // Repositionner la camera
         CameraFollow.instance.SetFocusPlayer();
+
+        // Naissance du joueur
+        if (birthAnimation)
+            playerTransform.gameObject.GetComponent<PlayerLife>().Birth();
+
+        // Fade In
+        Fade.instance.FadeIn();
     }
 
     public void LoadSubScenePauseToLevel()
@@ -92,7 +101,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator _LoadSubScenePauseToLevel()
     {
         // Charger la subScene 
-        LoadSubScene(csm.levelSubScene, csm.levelPlayer, csm.levelSpawnPlayer, false);
+        LoadSubScene(csm.levelSubScene, csm.levelPlayer, csm.levelSpawnPlayer, false, false);
         
         // Charger le panel du countdown
         csm.panelCountdown.SetActive(true);
@@ -158,7 +167,7 @@ public class GameManager : MonoBehaviour
 
             // Options
             case "OptionsButton":
-                LoadSubScene(csm.optionsSubScene, csm.optionsPlayer, csm.optionsSpawnPlayer, false);
+                LoadSubScene(csm.optionsSubScene, csm.optionsPlayer, csm.optionsSpawnPlayer, false, true);
                 break;
 
             // Not found

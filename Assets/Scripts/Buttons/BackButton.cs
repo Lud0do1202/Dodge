@@ -9,7 +9,7 @@ public class BackButton : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return) && triggerStay)
         {
             CurrentSceneManager csm = CurrentSceneManager.instance;
-            GameManager.instance.LoadSubScene(csm.previousSubScene, csm.previousPlayer, csm.previousSpawnPlayer, false);
+            GameManager.instance.LoadSubScene(csm.previousSubScene, csm.previousPlayer, csm.previousSpawnPlayer, false, true);
         }
     }
 

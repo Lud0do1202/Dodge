@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
         if(!collision.CompareTag("Enemy") && !collision.CompareTag("DeathArea"))
         {
             if (collision.CompareTag("Player"))
-                collision.GetComponent<PlayerDeath>().Death();
+                collision.GetComponent<PlayerLife>().Death();
 
             GetComponentInParent<EnemyShoot>().bullets.Remove(gameObject);
             Destroy(gameObject);

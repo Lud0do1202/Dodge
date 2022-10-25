@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator playerAnimator;
     private Rigidbody2D playerRb;
 
-    private void Start()
+    private void Awake()
     {
         playerSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         playerAnimator = gameObject.GetComponent<Animator>();
