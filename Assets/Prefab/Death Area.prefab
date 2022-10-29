@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -6631359870676731184}
   m_Layer: 0
   m_Name: Death Area
-  m_TagString: DeathArea
+  m_TagString: Death Area
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

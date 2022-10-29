@@ -7,3 +7,5 @@ ORDER IN LAYER:
 4 - Walls
 5 - Death Areas
 6 - Player
+7 - Bullet
+8 - Enemy

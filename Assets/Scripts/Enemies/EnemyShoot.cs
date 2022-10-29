@@ -30,7 +30,13 @@ public class EnemyShoot : MonoBehaviour
 
     private void Awake()
     {
+        if (playerTransform == null)
+            Debug.LogError("Player not refered for this enemy");
         delayFirstShot = Random.Range(minDelayFirstShot, maxDelayFirstShot);
+    }
+    private void Start()
+    {
+        StartCoroutine(Shoot(delayFirstShot));
     }
 
     public IEnumerator Shoot(float delay)
