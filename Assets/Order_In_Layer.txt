@@ -1,0 +1,9 @@
+ORDER IN LAYER:
+
+0 - Ground
+1 - Props
+2 - Green Texts
+3 - Red Texts
+4 - Walls
+5 - Death Areas
+6 - Player

@@ -4,46 +4,56 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - DeathArea
-  - Enemy
-  - PlayButton
-  - SelectLevelButton
-  - OptionsButton
-  - QuitButton
-  - ReduceMusicButton
-  - IncreaseMusicButton
-  - 10%Music
-  - 20%Music
-  - 30%Music
-  - 40%Music
-  - 50%Music
-  - 60%Music
-  - 70%Music
-  - 80%Music
-  - 90%Music
-  - 100%Music
-  - ReduceSoundsButton
-  - IncreaseSoundsButton
-  - 10%Sounds
-  - 20%Sounds
-  - 30%Sounds
-  - 40%Sounds
-  - 50%Sounds
-  - 60%Sounds
-  - 70%Sounds
-  - 80%Sounds
-  - 90%Sounds
-  - 100%Sounds
-  - 720x480Button
-  - 1080x720Button
-  - 1920x1080Button
-  - 4096x2304Button
-  - Fullscreen
-  - CreditButton
-  - BackButton
-  - Bullet
+  - Play Button
+  - Quit Button
+  - Options Button
+  - Select Level Button
+  - ----------
+  - Reduce Music Button
+  - Increase Music Button
+  - Reduce Sounds Button
+  - Increase Sounds Button
+  - -----------
+  - Fullscreen Button
+  - 720x480 Button
+  - 1080x720 Button
+  - 1920x1080 Button
+  - 4096x2304 Button
+  - ------------
+  - Credits Button
+  - Back Button
   - Resume Button
   - Main Menu Button
+  - -------------
+  - 10% Music
+  - 20% Music
+  - 30% Music
+  - 40% Music
+  - 50% Music
+  - 60% Music
+  - 70% Music
+  - 80% Music
+  - 90% Music
+  - 100% Music
+  - --------------
+  - 10% Sounds
+  - 20% Sounds
+  - 30% Sounds
+  - 40% Sounds
+  - 50% Sounds
+  - 60% Sounds
+  - 70% Sounds
+  - 80% Sounds
+  - 90% Sounds
+  - 100% Sounds
+  - ---------------
+  - Enemy
+  - Bullet
+  - Death Area
+  - ----------------
+  - Level_01 Button
+  - Level_02 Button
+  - Level_03  Button
   layers:
   - Default
   - TransparentFX

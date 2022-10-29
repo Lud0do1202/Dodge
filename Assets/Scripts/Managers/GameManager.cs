@@ -4,11 +4,12 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // CurrentSceneManager
-    private CurrentSceneManager csm;
+    // DontDestroyOnLoad
+    public GameObject[] dontDestroyOnLoadGO;
 
     // Singleton
     public static GameManager instance;
+    private CurrentSceneManager csm;
 
     private void Awake()
     {
@@ -18,29 +19,35 @@ public class GameManager : MonoBehaviour
             return;
         }
         instance = this;
+
+        // Dont Destroy on Load
+        foreach (GameObject go in dontDestroyOnLoadGO)
+            DontDestroyOnLoad(go);
     }
 
     private void Start()
     {
-        // Birth of the player
+        // Singleton
         csm = CurrentSceneManager.instance;
+
+        // Birth of the player
         csm.currentPlayer.gameObject.GetComponent<PlayerLife>().Birth();
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            Debug.LogWarning("Manual Respawn");
-            ReloadActiveScene();
-        }
-
         // Charger la subScene pause
         if (Input.GetKeyDown(KeyCode.Escape) && csm.canPause)
         {
             csm.canPause = false;
             LoadSubScene(csm.pauseSubScene, csm.pausePlayer, csm.pauseSpawnPlayer, true, true);
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        // Réinitialiser le fait que la fenetre de tuto n'est plus fermée
+        PlayerPrefs.SetInt("tutoWindowClosed", 0);
     }
 
     public void ReloadActiveScene()
@@ -55,7 +62,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        SceneManager.LoadScene(PlayerPrefs.GetString("NextLevel", "Level_00"));
+        SceneManager.LoadScene(PlayerPrefs.GetString("NextLevel", "Level_01"));
     }
 
     public void LoadSubScene(GameObject subSceneToLoad, Transform playerTransform, Transform spawnPlayerTransform, bool saveTimeAtLoadSubScene, bool birthAnimation)
@@ -101,7 +108,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator _LoadSubScenePauseToLevel()
     {
         // Charger la subScene 
-        LoadSubScene(csm.levelSubScene, csm.levelPlayer, csm.levelSpawnPlayer, false, false);
+        LoadSubScene(csm.levelSubScene, csm.levelPlayer, null, false, false);
         
         // Charger le panel du countdown
         csm.panelCountdown.SetActive(true);
@@ -155,19 +162,89 @@ public class GameManager : MonoBehaviour
     {
         switch (tagButton)
         {
+            // Play
+            case "Play Button":
+                LoadNextLevel();
+                break;
+
+            // Quit
+            case "Quit Button":
+                Application.Quit();
+                break;
+
+            // Options
+            case "Options Button":
+                LoadSubScene(csm.optionsSubScene, csm.optionsPlayer, csm.optionsSpawnPlayer, false, true);
+                break;
+
+            // Select Level
+            case "Select Level Button":
+                LoadScene("Select Level");
+                break;
+
+            // Reduce Music
+            case "Reduce Music Button":
+                OptionsManager.instance.ReduceMusicLevel();
+                break;
+
+            // Increase Music
+            case "Increase Music Button":
+                OptionsManager.instance.IncreaseMusicLevel();
+                break;
+
+            // Reduce Sounds
+            case "Reduce Sounds Button":
+                OptionsManager.instance.ReduceSoundsLevel();
+                break;
+
+            // Increase Sounds
+            case "Increase Sounds Button":
+                OptionsManager.instance.IncreaseSoundsLevel();
+                break;
+
+            // Fullscreen
+            case "Fullscreen Button":
+                OptionsManager.instance.ChangeFullscreen();
+                break;
+
+            // 720x480
+            case "720x480 Button":
+                OptionsManager.instance.ChangeResolution(720, 480, 0);
+                break;
+
+            // 1080x720
+            case "1080x720 Button":
+                OptionsManager.instance.ChangeResolution(1080, 720, 1);
+                break;
+
+            // 1920x1080
+            case "1920x1080 Button":
+                OptionsManager.instance.ChangeResolution(1920, 1080, 2);
+                break;
+
+            // 4096x2304
+            case "4096x2304 Button":
+                OptionsManager.instance.ChangeResolution(4096, 2304, 3);
+                break;
+
+            // Credits
+            case "Credits Button":
+                LoadScene("Credits");
+                break;
+
+            // Back
+            case "Back Button":
+                LoadSubScene(csm.previousSubScene, csm.previousPlayer, csm.previousSpawnPlayer, false, true);
+                break;
+
             // Resume
             case "Resume Button":
                 LoadSubScenePauseToLevel();
                 break;
 
-            // Play
-            case "PlayButton":
-                LoadNextLevel();
-                break;
-
-            // Options
-            case "OptionsButton":
-                LoadSubScene(csm.optionsSubScene, csm.optionsPlayer, csm.optionsSpawnPlayer, false, true);
+            // Main Menu
+            case "Main Menu Button":
+                LoadScene("Main Menu");
                 break;
 
             // Not found

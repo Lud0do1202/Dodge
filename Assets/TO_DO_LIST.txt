@@ -22,3 +22,7 @@ TO DO LIST : Dodge Game
 * Do only one script that handle buttons
 	- With tags
 	- game manager fin
+
+* Press Enter to continue with the Help Window and not the button
+
+* Modifer les attributs selected dans options manager

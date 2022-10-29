@@ -35,7 +35,6 @@ public class CurrentSceneManager : MonoBehaviour
     [Header("Level"), Space(2)]
     public GameObject levelSubScene;
     public Transform levelPlayer;
-    public Transform levelSpawnPlayer;
 
     // Options
     [Header("Options"), Space(2)]
@@ -64,7 +63,6 @@ public class CurrentSceneManager : MonoBehaviour
     public string nextSceneToLoad;
 
     // State
-    public bool autoRespawn;
     public bool canPause;
 
     // Singleton

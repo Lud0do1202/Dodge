@@ -14,9 +14,7 @@ public class OptionsManager : MonoBehaviour
     private int indexSoundsLevel;
 
     // Resolutions
-    private Resolution[] resolutions;
-    private List<Dictionary<string, int>> resolutionsAccepted;
-    private int indexLastReso;
+    private Color notSupportedResoColor;
 
     public GameObject fullscreenSelected;
 
@@ -36,47 +34,26 @@ public class OptionsManager : MonoBehaviour
         }
         instance = this;
 
-        // get the indexMusic/SoundsLevel
-        indexMusicLevel = PlayerPrefs.GetInt("indexMusicLevel", 9);
-        indexSoundsLevel = PlayerPrefs.GetInt("indexSoundsLevel", 9);
-
-        // Résolutions
-        resolutionsAccepted = new List<Dictionary<string, int>>()
-        {
-            new Dictionary<string, int>() { { "width", 720 }, { "height", 480 } },
-            new Dictionary<string, int>() { { "width", 1080 }, { "height", 720 } },
-            new Dictionary<string, int>() { { "width", 1920 }, { "height", 1080 } },
-            new Dictionary<string, int>() { { "width", 4096 }, { "height", 2304 } }
-        };
-
-        resolutions = Screen.resolutions;
+        // Color of a resolution no
+        notSupportedResoColor = new Color(0, 0.2f, 0);
     }
 
     private void Start()
     {
+        // get the indexMusic/SoundsLevel
+        indexMusicLevel = AudioManager.instance.GetIndexMusicLevel();
+        indexSoundsLevel = AudioManager.instance.GetIndexSoundsLevel();
+
         // Activer le bon music level
         musicLevels[indexMusicLevel].SetActive(true);
-        AudioManager.instance.SetMusicVolume(indexMusicLevel);
-
         soundsLevels[indexSoundsLevel].SetActive(true);
-        AudioManager.instance.SetSoundsVolume(indexSoundsLevel);
 
         // Afficher les Résolutions
-        ChangeFullscreen((PlayerPrefs.GetInt("isFullscreen", 1) == 1) ? true : false);
-        SelectValidResolutions();
-        int defaultWidth = resolutionsAccepted[indexLastReso]["width"],
-            defaultHeight = resolutionsAccepted[indexLastReso]["height"];
-        ChangeResolution(PlayerPrefs.GetInt("widthReso", defaultWidth), PlayerPrefs.GetInt("heightReso", defaultHeight), PlayerPrefs.GetInt("indexReso", indexLastReso));
-    }
+        DisplaySupportedResolutions();
 
-    // Hightlight the button
-    public void HightLighted(GameObject gameObject)
-    {
-        gameObject.GetComponent<Animator>().SetTrigger("Hightlighted");
-    }
-    public void NotHightLighted(GameObject gameObject)
-    {
-        gameObject.GetComponent<Animator>().SetTrigger("NotHightlighted");
+        // Fullscreen
+        ResolutionManager.instance.SetFullscreen(ResolutionManager.instance.GetFullscreen() == 1);
+        fullscreenSelected.SetActive(ResolutionManager.instance.GetFullscreen() == 1);
     }
 
     // Reduce / increase the volume of the music
@@ -87,9 +64,6 @@ public class OptionsManager : MonoBehaviour
             // Desable the last musicLevel
             musicLevels[indexMusicLevel].SetActive(false);
             indexMusicLevel--;
-
-            // Save the new indexMusicLevel
-            PlayerPrefs.SetInt("indexMusicLevel", indexMusicLevel);
 
             // Reduce the musicVolume
             AudioManager.instance.SetMusicVolume(indexMusicLevel);
@@ -111,9 +85,6 @@ public class OptionsManager : MonoBehaviour
             indexMusicLevel++;
             musicLevels[indexMusicLevel].SetActive(true);
 
-            // Save the new indexMusicLevel
-            PlayerPrefs.SetInt("indexMusicLevel", indexMusicLevel);
-
             // Increase the musicVolume
             AudioManager.instance.SetMusicVolume(indexMusicLevel);
         }
@@ -127,9 +98,6 @@ public class OptionsManager : MonoBehaviour
             // Desable the last musicLevel
             soundsLevels[indexSoundsLevel].SetActive(false);
             indexSoundsLevel--;
-
-            // Save the new indexMusicLevel
-            PlayerPrefs.SetInt("indexSoundsLevel", indexSoundsLevel);
 
             // Reduce the musicVolume
             AudioManager.instance.SetSoundsVolume(indexSoundsLevel);
@@ -151,80 +119,49 @@ public class OptionsManager : MonoBehaviour
             indexSoundsLevel++;
             soundsLevels[indexSoundsLevel].SetActive(true);
 
-            // Save the new indexMusicLevel
-            PlayerPrefs.SetInt("indexSoundsLevel", indexSoundsLevel);
-
             // Increase the musicVolume
             AudioManager.instance.SetSoundsVolume(indexSoundsLevel);
         }
     }
 
     // Resolutions
-    public void SelectValidResolutions()
+    public void DisplaySupportedResolutions()
     {
-        indexLastReso = resolutionsAccepted.Count - 1;
-        for (int i = 0; i < resolutionsAccepted.Count; i++)
-        {
-            // La résolution accepté est trop grande en x ou y
-            if (resolutionsAccepted[i]["width"] > resolutions[resolutions.Length - 1].width
-                || resolutionsAccepted[i]["height"] > resolutions[resolutions.Length - 1].height)
-            {
-                // Désactiver la résolution
-                resoButton[i].GetComponent<BoxCollider2D>().enabled = false;
-                resoButton[i].GetComponent<Light2D>().color = new Color(0, 0.2f, 0);
-                resoTilemap[i].color = new Color(0, 0.2f, 0);
+        // Activer Selected 
+        resoSelected[ResolutionManager.instance.GetResolutionSelected()].SetActive(true);
 
-                if (indexLastReso == resolutionsAccepted.Count - 1)
-                    indexLastReso = i - 1;
-            }
+        for (int i = ResolutionManager.instance.GetLastResolutionSupported() + 1; i < ResolutionManager.instance.resolutionsAccepted.Count; i++)
+        {
+            // Désactiver la résolution
+            resoButton[i].GetComponent<BoxCollider2D>().enabled = false;
+            resoButton[i].GetComponent<Light2D>().color = notSupportedResoColor;
+            resoTilemap[i].color = notSupportedResoColor;
         }
     }
 
     public void ChangeResolution(int width, int height, int indexReso)
     {
-        // Modifier la résolution
-        Screen.SetResolution(width, height, Screen.fullScreen);
-
         // Désactiver l'ancienne réso selectionnnée et activer la nouvelle
-        resoSelected[PlayerPrefs.GetInt("indexReso", 0)].SetActive(false);
+        resoSelected[ResolutionManager.instance.GetResolutionSelected()].SetActive(false);
         resoSelected[indexReso].SetActive(true);
 
-        // Enregistrer les infos
-        PlayerPrefs.SetInt("widthReso", width);
-        PlayerPrefs.SetInt("heightReso", height);
-        PlayerPrefs.SetInt("indexReso", indexReso);
+        // Modifier la résolution
+        ResolutionManager.instance.SetResolution(width, height, indexReso);
+
     }
 
     public void ChangeFullscreen()
     {
         // Si il est désactivé -> on active le fullscreen
-        if (PlayerPrefs.GetInt("isFullscreen", 0) == 0)
+        if (ResolutionManager.instance.GetFullscreen() == 0)
         {
-            Screen.fullScreen = true;
+            ResolutionManager.instance.SetFullscreen(true);
             fullscreenSelected.SetActive(true);
-            PlayerPrefs.SetInt("isFullscreen", 1);
         }
         else
         {
-            Screen.fullScreen = false;
+            ResolutionManager.instance.SetFullscreen(false);
             fullscreenSelected.SetActive(false);
-            PlayerPrefs.SetInt("isFullscreen", 0);
-        }
-    }
-    public void ChangeFullscreen(bool isFullscreen)
-    {
-        // Si il est désactivé -> on active le fullscreen
-        if (isFullscreen)
-        {
-            Screen.fullScreen = true;
-            fullscreenSelected.SetActive(true);
-            PlayerPrefs.SetInt("isFullscreen", 1);
-        }
-        else
-        {
-            Screen.fullScreen = false;
-            fullscreenSelected.SetActive(false);
-            PlayerPrefs.SetInt("isFullscreen", 0);
         }
     }
 }

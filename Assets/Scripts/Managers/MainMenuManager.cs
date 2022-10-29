@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
     // Ref
-    public GameObject helpWindow;
+    public GameObject tutoWindow;
+    public Image checkmark;
+    public PlayerMovement playerMovement;
 
     // Singleton
     public static MainMenuManager instance;
@@ -17,32 +20,40 @@ public class MainMenuManager : MonoBehaviour
         }
         instance = this;
 
-        // Say if we have to show the help window
-        if (PlayerPrefs.GetInt("ShowHelpWindow", 1) == 1)
-            helpWindow.SetActive(true);
-        else
-            helpWindow.SetActive(false);
+        // Say if we have to show the Tuto window
+        if (PlayerPrefs.GetInt("ShowTutoWindow", 1) == 1 && PlayerPrefs.GetInt("tutoWindowClosed", 0) == 0)
+            tutoWindow.SetActive(true);
     }
 
-    public void HightLighted(GameObject gameObject)
+    private void Start()
     {
-        gameObject.GetComponent<Animator>().SetTrigger("Hightlighted");
-    }
-    public void NotHightLighted(GameObject gameObject)
-    {
-        gameObject.GetComponent<Animator>().SetTrigger("NotHightlighted");
+        if (PlayerPrefs.GetInt("ShowTutoWindow", 1) == 1)
+           playerMovement.enabled = false;
     }
 
-    // Show / Close the help window
-    public void ShowHelpWindow(bool toggle)
+    private void Update()
     {
-        if (toggle)
-            PlayerPrefs.SetInt("ShowHelpWindow", 0);
-        else
-            PlayerPrefs.SetInt("ShowHelpWindow", 1);
+        if(PlayerPrefs.GetInt("tutoWindowClosed") == 0)
+        {
+            if (Input.GetKeyDown(KeyCode.Tab))
+                ShowTutoWindow();
+
+            else if (Input.GetKeyDown(KeyCode.Return))
+                CloseTutoWindow();
+        }
     }
-    public void CloseHelpWindow()
+
+    // Show / Close the Tuto window
+    public void ShowTutoWindow()
     {
-        helpWindow.SetActive(false);
+        PlayerPrefs.SetInt("ShowTutoWindow", PlayerPrefs.GetInt("ShowTutoWindow")==1?0:1);
+        checkmark.enabled = !checkmark.enabled;
+    }
+    public void CloseTutoWindow()
+    {
+        playerMovement.enabled = true;
+
+        tutoWindow.SetActive(false);
+        PlayerPrefs.SetInt("tutoWindowClosed", 1);
     }
 }
