@@ -26,6 +26,9 @@ public class PlayerLife : MonoBehaviour
 
     public void Death()
     {
+        // Annuler le pause mode --> reinitialiser avec le reloadScene
+        CurrentSceneManager.instance.canPause = false;
+
         // Fade out
         Fade.instance.FadeOut();
 

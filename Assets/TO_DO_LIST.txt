@@ -1,28 +1,12 @@
 TO DO LIST : Dodge Game
 --------------------------
 
-* One Tilemap for :
-	- Ground (White)
-	- Green Text
-	- Red Text
-	- Walls
+- Warning Message with the PlayerPrefs.HasKey()
 
-* Make Prefab of :
-	- Level
-	- Main Menu
-	- Options
-	- Pause
+- Reload MainMenuScene --> Error Messages not relevant since that I destroy those GameObject in DontDestroyOnLoad Manager
 
-* Change name of tags (like backButton --> Back Button)
+- Credits Scene
 
-* Box collider of buttons :
-	- size.x = length + 0.5
-	- size.y = height + 0.5
+- Select Level Scene
 
-* Do only one script that handle buttons
-	- With tags
-	- game manager fin
-
-* Press Enter to continue with the Help Window and not the button
-
-* Modifer les attributs selected dans options manager
+- Level_02 + Level_03 + Transition between levels

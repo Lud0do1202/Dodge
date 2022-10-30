@@ -4,12 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // DontDestroyOnLoad
-    public GameObject[] dontDestroyOnLoadGO;
-
     // Singleton
     public static GameManager instance;
-    private CurrentSceneManager csm;
 
     private void Awake()
     {
@@ -19,23 +15,19 @@ public class GameManager : MonoBehaviour
             return;
         }
         instance = this;
-
-        // Dont Destroy on Load
-        foreach (GameObject go in dontDestroyOnLoadGO)
-            DontDestroyOnLoad(go);
     }
-
+    
     private void Start()
     {
-        // Singleton
-        csm = CurrentSceneManager.instance;
-
         // Birth of the player
-        csm.currentPlayer.gameObject.GetComponent<PlayerLife>().Birth();
+        CurrentSceneManager.instance.currentPlayer.gameObject.GetComponent<PlayerLife>().Birth();
     }
 
     private void Update()
     {
+        // Singleton
+        CurrentSceneManager csm = CurrentSceneManager.instance;
+
         // Charger la subScene pause
         if (Input.GetKeyDown(KeyCode.Escape) && csm.canPause)
         {
@@ -53,22 +45,23 @@ public class GameManager : MonoBehaviour
     private void OnApplicationQuit()
     {
         // Réinitialiser le fait que la fenetre de tuto n'est plus fermée
-        PlayerPrefs.SetInt("TutoWindowClosed", 0);
+        PlayerPrefs.SetInt("FirstSceneLoaded", 1);
+    }
+
+    public void LoadScene(string nameSceneToLoad)
+    {
+        PlayerPrefs.SetInt("FirstSceneLoaded", 0);
+        SceneManager.LoadScene(nameSceneToLoad);
     }
 
     public void ReloadActiveScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        LoadScene(SceneManager.GetActiveScene().name);
     }    
-
-    public void LoadScene(string nameSceneToLoad)
-    {
-        SceneManager.LoadScene(nameSceneToLoad);
-    }
 
     public void LoadNextLevel()
     {
-        SceneManager.LoadScene(PlayerPrefs.GetString("NextLevel", "Level_01"));
+        LoadScene(PlayerPrefs.GetString("NextLevel", "Level_01"));
     }
 
     public void LoadSubScene(GameObject subSceneToLoad, Transform playerTransform, Transform spawnPlayerTransform, bool saveTimeAtLoadSubScene, bool birthAnimation)
@@ -113,6 +106,8 @@ public class GameManager : MonoBehaviour
     }
     private IEnumerator _LoadSubScenePauseToLevel()
     {
+        CurrentSceneManager csm = CurrentSceneManager.instance;
+
         // Charger la subScene 
         LoadSubScene(csm.levelSubScene, csm.levelPlayer, null, false, false);
         
@@ -166,6 +161,7 @@ public class GameManager : MonoBehaviour
 
     public void ButtonPressed(string tagButton)
     {
+        CurrentSceneManager csm = CurrentSceneManager.instance;
         switch (tagButton)
         {
             // Play

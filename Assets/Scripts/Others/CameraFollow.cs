@@ -12,7 +12,7 @@ public class CameraFollow : MonoBehaviour
     {
         if(instance != null)
         {
-            Debug.LogError("2 instances of CameraFollow");
+            Debug.LogError("More than one instance of CameraFollow");
             return;
         }
         instance = this;

@@ -78,8 +78,8 @@ public class CurrentSceneManager : MonoBehaviour
         instance = this;
 
         // Charger les elements du start sub scene
-        CurrentSceneManager.instance.currentSubScene = startSubScene;
-        CurrentSceneManager.instance.currentPlayer = startPlayer;
-        CurrentSceneManager.instance.currentSpawnPlayer = startSpawnPlayer;
+        currentSubScene = startSubScene;
+        currentPlayer = startPlayer;
+        currentSpawnPlayer = startSpawnPlayer;
     }
 }

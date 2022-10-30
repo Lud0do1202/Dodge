@@ -8,6 +8,8 @@ public class MainMenuManager : MonoBehaviour
     public Image checkmark;
     public GameObject player;
 
+    private bool tutoWindowClosed = true;
+
     // Singleton
     public static MainMenuManager instance;
 
@@ -21,25 +23,24 @@ public class MainMenuManager : MonoBehaviour
         instance = this;
 
         // Say if we have to show the Tuto window
-        Debug.LogWarning("Must use PlayerPrefs.HasKey + SetInt instead of getInt with a default value");
+        Debug.LogWarning("Use HasKey(ShowTutoWindow) instead of GetInt");
         if (!PlayerPrefs.HasKey("ShowTutoWindow"))
             PlayerPrefs.SetInt("ShowTutoWindow", 1);
-        if (!PlayerPrefs.HasKey("TutoWindowClosed"))
-            PlayerPrefs.SetInt("TutoWindowClosed", 0);
     }
 
     private void Start()
     {
-        if (PlayerPrefs.GetInt("ShowTutoWindow") == 1 && PlayerPrefs.GetInt("TutoWindowClosed") == 0)
+        if (PlayerPrefs.GetInt("ShowTutoWindow") == 1 && PlayerPrefs.GetInt("FirstSceneLoaded") == 1)
         {
             tutoWindow.SetActive(true);
             player.SetActive(false);
+            tutoWindowClosed = false;
         }
     }
 
     private void Update()
     {
-        if(PlayerPrefs.GetInt("TutoWindowClosed") == 0)
+        if(!tutoWindowClosed)
         {
             if (Input.GetKeyDown(KeyCode.Tab))
                 ToggleShowTutoWindow();
@@ -60,6 +61,6 @@ public class MainMenuManager : MonoBehaviour
         player.SetActive(true);
         player.GetComponent<PlayerLife>().Birth();
         tutoWindow.SetActive(false);
-        PlayerPrefs.SetInt("TutoWindowClosed", 1);
+        tutoWindowClosed = true;
     }
 }
