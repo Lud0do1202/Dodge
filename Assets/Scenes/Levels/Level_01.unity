@@ -479,7 +479,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 800}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 1
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -11902,6 +11902,14 @@ PrefabInstance:
     - target: {fileID: 2096015536621253890, guid: 365872291e92abe43a4b4589e2e9db08, type: 3}
       propertyPath: m_Name
       value: Countdown
+      objectReference: {fileID: 0}
+    - target: {fileID: 2096015536621253890, guid: 365872291e92abe43a4b4589e2e9db08, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2096015538477473482, guid: 365872291e92abe43a4b4589e2e9db08, type: 3}
+      propertyPath: m_margin.x
+      value: 721.99445
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 365872291e92abe43a4b4589e2e9db08, type: 3}

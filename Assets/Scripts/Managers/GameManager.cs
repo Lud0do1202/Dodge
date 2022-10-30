@@ -42,12 +42,18 @@ public class GameManager : MonoBehaviour
             csm.canPause = false;
             LoadSubScene(csm.pauseSubScene, csm.pausePlayer, csm.pauseSpawnPlayer, true, true);
         }
+
+        if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            Debug.LogWarning("PlayerPrefs Delete");
+            PlayerPrefs.DeleteAll();
+        }
     }
 
     private void OnApplicationQuit()
     {
         // Réinitialiser le fait que la fenetre de tuto n'est plus fermée
-        PlayerPrefs.SetInt("tutoWindowClosed", 0);
+        PlayerPrefs.SetInt("TutoWindowClosed", 0);
     }
 
     public void ReloadActiveScene()
