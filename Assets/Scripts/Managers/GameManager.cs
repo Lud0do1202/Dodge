@@ -16,12 +16,6 @@ public class GameManager : MonoBehaviour
         }
         instance = this;
     }
-    
-    private void Start()
-    {
-        // Birth of the player
-        CurrentSceneManager.instance.currentPlayer.gameObject.GetComponent<PlayerLife>().Birth();
-    }
 
     private void Update()
     {
@@ -50,7 +44,14 @@ public class GameManager : MonoBehaviour
 
     public void LoadScene(string nameSceneToLoad)
     {
+        StartCoroutine(_LoadScene(nameSceneToLoad));
+    }
+
+    private IEnumerator _LoadScene(string nameSceneToLoad)
+    {
         PlayerPrefs.SetInt("FirstSceneLoaded", 0);
+        Fade.instance.FadeOut();
+        yield return new WaitForSeconds(Fade.instance.timeAnimation);
         SceneManager.LoadScene(nameSceneToLoad);
     }
 
@@ -59,9 +60,10 @@ public class GameManager : MonoBehaviour
         LoadScene(SceneManager.GetActiveScene().name);
     }    
 
-    public void LoadNextLevel()
+    public void LoadNextLevel(string levelToLoad)
     {
-        LoadScene(PlayerPrefs.GetString("NextLevel", "Level_01"));
+        PlayerPrefs.SetString("NextLevel", levelToLoad);
+        LoadScene(levelToLoad);
     }
 
     public void LoadSubScene(GameObject subSceneToLoad, Transform playerTransform, Transform spawnPlayerTransform, bool saveTimeAtLoadSubScene, bool birthAnimation)
@@ -73,7 +75,7 @@ public class GameManager : MonoBehaviour
         subSceneToLoad.SetActive(true);
 
         // Save le time au moment de la pause pour pouvoir relancer les coroutines correctement
-        if(saveTimeAtLoadSubScene)
+        if (saveTimeAtLoadSubScene)
             csm.timeAtLoadPauseSubScene = Time.time;
 
         // replacer le joueur
@@ -88,9 +90,6 @@ public class GameManager : MonoBehaviour
         csm.currentSubScene = subSceneToLoad;
         csm.currentPlayer = playerTransform;
         csm.currentSpawnPlayer = spawnPlayerTransform;
-
-        // Repositionner la camera
-        CameraFollow.instance.SetFocusPlayer();
 
         // Naissance du joueur
         if (birthAnimation)
@@ -166,7 +165,7 @@ public class GameManager : MonoBehaviour
         {
             // Play
             case "Play Button":
-                LoadNextLevel();
+                LoadNextLevel(PlayerPrefs.GetString("NextLevel", "Level_01"));
                 break;
 
             // Quit

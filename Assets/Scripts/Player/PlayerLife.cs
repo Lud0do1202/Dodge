@@ -9,6 +9,9 @@ public class PlayerLife : MonoBehaviour
 
         // Arreter le déplacement du player
         GetComponent<PlayerMovement>().StopMovement();
+
+        // Positionner la camera
+        CameraFollow.instance.SetFocusPlayer();
     }
 
     public void EndBirth()
@@ -28,9 +31,6 @@ public class PlayerLife : MonoBehaviour
     {
         // Annuler le pause mode --> reinitialiser avec le reloadScene
         CurrentSceneManager.instance.canPause = false;
-
-        // Fade out
-        Fade.instance.FadeOut();
 
         // Animation de mort
         GetComponent<Animator>().SetTrigger("Death");

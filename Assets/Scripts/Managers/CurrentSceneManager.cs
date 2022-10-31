@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class CurrentSceneManager : MonoBehaviour
 {
@@ -60,7 +61,10 @@ public class CurrentSceneManager : MonoBehaviour
 
     // Var
     [Space(10)]
+    public bool lastLevel;
     public string nextSceneToLoad;
+    [HideInInspector]
+    public int nbEnemies;
 
     // State
     public bool canPause;
@@ -82,4 +86,42 @@ public class CurrentSceneManager : MonoBehaviour
         currentPlayer = startPlayer;
         currentSpawnPlayer = startSpawnPlayer;
     }
+    private void Start()
+    {
+        // Compter le nombre d'ennemis
+        nbEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+
+        // S'il n'y a pas d'ennemi -> nbEnemies = -1 pour pas rentrer dans la condition du update
+        if (nbEnemies == 0)
+            nbEnemies = -1;
+
+        // Birth of the player
+        currentPlayer.gameObject.GetComponent<PlayerLife>().Birth();
+
+        // Fade
+        Fade.instance.FadeIn();
+    }
+    
+    private void Update()
+    {
+        if(nbEnemies == 0)
+        {
+            nbEnemies--;
+            StartCoroutine(LoadNextScene());
+        }
+    }
+
+    private IEnumerator LoadNextScene()
+    {
+        // Attendre avant de charger soit la scene de credit ou le prochain niveau
+        yield return new WaitForSeconds(0.5f);
+
+        if (!lastLevel)
+            GameManager.instance.LoadNextLevel(nextSceneToLoad);
+        else
+            GameManager.instance.LoadScene("Credits");
+
+    }
+
+
 }

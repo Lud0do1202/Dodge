@@ -4,6 +4,8 @@ public class Fade : MonoBehaviour
 {
     public Animator animator;
 
+    public float timeAnimation;
+
     public static Fade instance;
 
     private void Awake()
@@ -14,6 +16,8 @@ public class Fade : MonoBehaviour
             return;
         }
         instance = this;
+
+        Debug.LogWarning("TimeAnimation needed in LoadNextScene but it's hard-code");
     }
 
     public void FadeIn()
