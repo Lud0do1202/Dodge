@@ -58,7 +58,6 @@ MonoBehaviour:
   mainMenuSpawnPlayer: {fileID: 0}
   levelSubScene: {fileID: 0}
   levelPlayer: {fileID: 0}
-  levelSpawnPlayer: {fileID: 0}
   optionsSubScene: {fileID: 0}
   optionsPlayer: {fileID: 0}
   optionsSpawnPlayer: {fileID: 0}
@@ -69,6 +68,7 @@ MonoBehaviour:
   panelCountdown: {fileID: 0}
   textCountdown: {fileID: 0}
   countownAnimator: {fileID: 0}
+  lastLevel: 0
   nextSceneToLoad: 
-  autoRespawn: 0
+  nbEnemies: 0
   canPause: 0

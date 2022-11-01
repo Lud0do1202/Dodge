@@ -51,9 +51,7 @@ TagManager:
   - Bullet
   - Death Area
   - ----------------
-  - Level_01 Button
-  - Level_02 Button
-  - Level_03  Button
+  - Level Button
   layers:
   - Default
   - TransparentFX

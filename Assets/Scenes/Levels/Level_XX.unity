@@ -527,8 +527,8 @@ Transform:
   - {fileID: 1471381677}
   - {fileID: 347288969}
   - {fileID: 1298252871}
-  - {fileID: 167135546}
   - {fileID: 2083840252}
+  - {fileID: 167135546}
   - {fileID: 1005486595}
   m_Father: {fileID: 1962844294}
   m_RootOrder: 0
@@ -1168,10 +1168,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 757075453}
     - target: {fileID: 1215225951183164835, guid: 0fbd4e25658f7ef44985468373fde0e9, type: 3}
-      propertyPath: nextSceneToLoad
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1215225951183164835, guid: 0fbd4e25658f7ef44985468373fde0e9, type: 3}
       propertyPath: optionsSubScene
       value: 
       objectReference: {fileID: 1087630268}
@@ -1318,7 +1314,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 493180253}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &348286728492800481
 PrefabInstance:

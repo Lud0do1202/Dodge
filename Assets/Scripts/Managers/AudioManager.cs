@@ -17,6 +17,7 @@ public class AudioManager : MonoBehaviour
         }
         instance = this;
     }
+
     private void Start()
     {
         // Activer le son

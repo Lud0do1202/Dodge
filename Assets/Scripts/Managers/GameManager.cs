@@ -62,6 +62,11 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel(string levelToLoad)
     {
+        // Save in LastLevelReached if levelToLoad is higher than the last lastLevelReached
+        if (levelToLoad.CompareTo(PlayerPrefs.GetString("LastLevelReached", "Level_00")) > 0)
+            PlayerPrefs.SetString("LastLevelReached", levelToLoad);
+
+        // Sae the NextLevel + load the scene
         PlayerPrefs.SetString("NextLevel", levelToLoad);
         LoadScene(levelToLoad);
     }
@@ -90,6 +95,9 @@ public class GameManager : MonoBehaviour
         csm.currentSubScene = subSceneToLoad;
         csm.currentPlayer = playerTransform;
         csm.currentSpawnPlayer = spawnPlayerTransform;
+
+        // Forcer le repositionner la camera
+        CameraFollow.instance.SetFocusPlayer();
 
         // Naissance du joueur
         if (birthAnimation)
@@ -165,7 +173,7 @@ public class GameManager : MonoBehaviour
         {
             // Play
             case "Play Button":
-                LoadNextLevel(PlayerPrefs.GetString("NextLevel", "Level_01"));
+                LoadNextLevel(PlayerPrefs.GetString("NextLevel", "Level_00"));
                 break;
 
             // Quit
@@ -246,6 +254,14 @@ public class GameManager : MonoBehaviour
             // Main Menu
             case "Main Menu Button":
                 LoadScene("Main Menu");
+                break;
+
+            // Level
+            case "Level Button":
+                string levelToLoad = "Level_" + 
+                    (SelectLevelManager.instance.posLevelButtonPressed.x / 3).ToString() + 
+                    (-SelectLevelManager.instance.posLevelButtonPressed.y / 3).ToString();
+                LoadNextLevel(levelToLoad);
                 break;
 
             // Not found
