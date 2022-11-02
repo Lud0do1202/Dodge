@@ -39,7 +39,6 @@ public class EnemyShoot : MonoBehaviour
     {
         delayBetweenShots = delay;
         timeAtShot = Time.time;
-
         yield return new WaitForSeconds(delay);
 
         // Vérifier si il peut tirer 

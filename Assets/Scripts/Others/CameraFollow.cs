@@ -25,17 +25,21 @@ public class CameraFollow : MonoBehaviour
 
     void Update()
     {
-        transform.position = Vector3.SmoothDamp(transform.position, new Vector3(
-                CurrentSceneManager.instance.currentPlayer.position.x,
-                CurrentSceneManager.instance.currentPlayer.position.y, 
-                transform.position.z
-            ), ref velocity, timeOffset);
+        if(!CurrentSceneManager.instance.dontFollowPlayer)
+            transform.position = Vector3.SmoothDamp(transform.position, new Vector3(
+                    CurrentSceneManager.instance.currentPlayer.position.x,
+                    CurrentSceneManager.instance.currentPlayer.position.y, 
+                    transform.position.z
+                ), ref velocity, timeOffset);
     }
 
     public void SetFocusPlayer()
     {
-        // Positionner la camera sur le joueur
-        transform.position = new Vector3(
+        if (CurrentSceneManager.instance.dontFollowPlayer)
+            transform.position = new Vector3(0, 0, transform.position.z);
+        else
+            // Positionner la camera sur le joueur
+            transform.position = new Vector3(
                 CurrentSceneManager.instance.currentPlayer.position.x,
                 CurrentSceneManager.instance.currentPlayer.position.y,
                 transform.position.z

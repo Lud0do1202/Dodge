@@ -68,6 +68,7 @@ public class CurrentSceneManager : MonoBehaviour
 
     // State
     public bool canPause;
+    public bool dontFollowPlayer;
 
     // Singleton
     public static CurrentSceneManager instance;
