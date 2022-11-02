@@ -31,15 +31,16 @@ public class PlayerAttack : MonoBehaviour
         collision.GetComponent<Animator>().SetTrigger("Death");
 
         // Désactiver son collider et les tirs
-        collision.GetComponent<BoxCollider2D>().enabled = false;
         collision.GetComponent<EnemyShoot>().canShoot = false;
 
         // Retirer le nombre d'ennemis dans la current scene
         CurrentSceneManager.instance.nbEnemies--;
 
-        // Desactiver le trigger si c'était le dernier ennemy afin de stopper une bullet sans mourir
-        if(CurrentSceneManager.instance.nbEnemies == 0)
-            GetComponent<BoxCollider2D>().enabled = false;
+        // Désactiver le canShootPlayer
+        if (CurrentSceneManager.instance.nbEnemies == 0)
+            foreach (GameObject bullet in GameObject.FindGameObjectsWithTag("Bullet"))
+                bullet.GetComponent<Bullet>().canShootPlayer = false;
+        
     }
 
     public void EndAttack()

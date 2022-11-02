@@ -38,7 +38,7 @@ public class PlayerLife : MonoBehaviour
         // Arreter le déplacement du player
         GetComponent<PlayerMovement>().StopMovement();
 
-        // Desactiver le collider du player
+        // Desactiver le collider + attack du player 
         GetComponent<BoxCollider2D>().enabled = false;
 
         // Arreter les tirs des ennemies

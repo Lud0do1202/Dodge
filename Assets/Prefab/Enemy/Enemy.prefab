@@ -240,7 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedBullet: 125
   minDelayFirstShot: 0
-  maxDelayFirstShot: 1.25
+  maxDelayFirstShot: 1
   minDelayBetweenShots: 0.5
   maxDelayBetweenShots: 1
   delayFirstShot: 0
