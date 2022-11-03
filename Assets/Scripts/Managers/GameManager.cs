@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && csm.canPause)
         {
             csm.canPause = false;
+            AudioManager.instance.PlayPauseMusic();
             LoadSubScene(csm.pauseSubScene, csm.pausePlayer, csm.pauseSpawnPlayer, true, true);
         }
 
@@ -173,6 +174,7 @@ public class GameManager : MonoBehaviour
         {
             // Play
             case "Play Button":
+                AudioManager.instance.PlayGameMusic();
                 LoadNextLevel(PlayerPrefs.GetString("NextLevel", "Level_00"));
                 break;
 
@@ -238,6 +240,7 @@ public class GameManager : MonoBehaviour
 
             // Credits
             case "Credits Button":
+                AudioManager.instance.PlayCreditsMusic();
                 LoadScene("Credits");
                 break;
 
@@ -248,16 +251,19 @@ public class GameManager : MonoBehaviour
 
             // Resume
             case "Resume Button":
+                AudioManager.instance.PlayGameMusic();
                 LoadSubScenePauseToLevel();
                 break;
 
             // Main Menu
             case "Main Menu Button":
+                AudioManager.instance.PlayMainMenuMusic();
                 LoadScene("Main Menu");
                 break;
 
             // Level
             case "Level Button":
+                AudioManager.instance.PlayGameMusic();
                 string levelToLoad = "Level_" + 
                     (SelectLevelManager.instance.posLevelButtonPressed.x / 3).ToString() + 
                     (-SelectLevelManager.instance.posLevelButtonPressed.y / 3).ToString();

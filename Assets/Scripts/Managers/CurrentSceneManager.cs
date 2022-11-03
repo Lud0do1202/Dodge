@@ -120,7 +120,7 @@ public class CurrentSceneManager : MonoBehaviour
         if (!lastLevel)
             GameManager.instance.LoadNextLevel(nextSceneToLoad);
         else
-            GameManager.instance.LoadScene("Credits");
+            GameManager.instance.ButtonPressed("Credits Button");
 
     }
 
