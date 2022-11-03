@@ -82,7 +82,8 @@ public class PlayerLife : MonoBehaviour
         }
         else
         {
-            GameManager.instance.ReloadActiveScene();
+            if(CurrentSceneManager.instance.nbEnemies != 0)
+                GameManager.instance.ReloadActiveScene();
         }
     }
 }
